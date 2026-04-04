@@ -1,1 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
+
+/* ══════════════════════════════════════════════════════════════
+   BASE LAYER — low-specificity defaults that Tailwind utilities
+   can still override. In Tailwind v4, @layer base ensures these
+   sit BELOW utility classes in the cascade.
+   ══════════════════════════════════════════════════════════════ */
+@layer base {
+  /* ── Global Reset ── */
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* ── Typography ── */
+  html {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  /* ── Body ── */
+  body {
+    background-color: #030712; /* gray-950 */
+    color: #f9fafb;
+    min-height: 100vh;
+    min-height: 100dvh; /* dynamic viewport height — avoids mobile address bar issues */
+    line-height: 1.6;
+    overflow-x: hidden; /* prevent horizontal scroll from fixed sidebar */
+  }
+
+  /* ── Root container — ensures React root fills the viewport ── */
+  #root {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Selection highlight ── */
+  ::selection {
+    background-color: #6366f1;
+    color: white;
+  }
+
+  /* ── Date input styling for dark mode ── */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.6);
+    cursor: pointer;
+  }
+
+  /* ── Number input — hide spinner arrows ── */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* ── Select dropdown arrow (custom) ── */
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CUSTOM SCROLLBAR — outside @layer so it applies globally
+   (pseudo-element selectors aren't affected by cascade layers)
+   ══════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}

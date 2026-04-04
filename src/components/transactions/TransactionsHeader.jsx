@@ -21,22 +21,17 @@ function TransactionsHeader({ role, onAddClick }) {
   const isAdmin = role === "admin";
 
   return (
-    <div className="flex items-center justify-between flex-wrap gap-3">
-      {/* Title + role badge */}
-      <div className="flex items-center gap-3">
-        <h2 className="text-lg font-semibold text-white">Transactions</h2>
-
-        {/* Role badge — makes role effect visually obvious */}
-        <span
-          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${
-            isAdmin
-              ? "bg-indigo-500/15 text-indigo-400"
-              : "bg-gray-700/60 text-gray-400"
-          }`}
-        >
-          {isAdmin ? "Admin" : <><Eye size={11} /> View Only</>}
-        </span>
-      </div>
+    <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+      {/* Role badge — makes role effect visually obvious */}
+      <span
+        className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider ${
+          isAdmin
+            ? "bg-indigo-500/20 text-indigo-400 border border-indigo-500/30"
+            : "bg-gray-800 text-gray-400 border border-gray-700"
+        }`}
+      >
+        {isAdmin ? "Admin Role Active" : <><Eye size={12} /> View Only</>}
+      </span>
 
       {/* Add button — only visible for Admin */}
       {isAdmin && (

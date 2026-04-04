@@ -18,7 +18,7 @@ import RoleSwitcher from "./RoleSwitcher";
  */
 function Topbar({ title, role, onRoleChange, onMenuClick }) {
   return (
-    <header className="flex items-center justify-between px-4 sm:px-6 py-4 bg-gray-900 border-b border-gray-800">
+    <header className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
       {/* Left side: hamburger + title */}
       <div className="flex items-center gap-3">
         {/* Hamburger menu — only visible on mobile */}

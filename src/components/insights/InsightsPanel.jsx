@@ -119,10 +119,8 @@ function InsightsPanel({ insights, monthlyData }) {
   ];
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-white">Financial Insights</h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {insightCards.map((card) => (
           <div
             key={card.id}

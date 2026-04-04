@@ -78,7 +78,7 @@ function CustomLegend({ payload }) {
 
 function CategoryBreakdownChart({ data }) {
   return (
-    <div className="rounded-xl bg-gray-800/60 border border-gray-700/50 p-5">
+    <div className="rounded-xl bg-gray-800/60 border border-gray-700/50 p-5 flex flex-col h-full">
       {/* Card header */}
       <h3 className="text-base font-semibold text-white mb-4">
         Spending by Category
