@@ -1,20 +1,5 @@
 import { LayoutDashboard, ArrowRightLeft, Lightbulb, X } from "lucide-react";
 
-/**
- * Sidebar
- *
- * RESPONSIBILITY:
- * The left-side navigation panel. It shows navigation links for each section
- * of the dashboard. On mobile, it slides in as an overlay and can be closed.
- * On desktop (lg and up), it is always visible.
- *
- * PROPS:
- *   - activePage (string): Which page is currently active — "dashboard", "transactions", or "insights"
- *   - onNavigate (function): Called with the page name when a nav link is clicked
- *   - isOpen (boolean): Whether the sidebar is visible on mobile
- *   - onClose (function): Called when the user clicks the close button or the backdrop on mobile
- */
-
 // Navigation items — easy to add more pages later
 const navItems = [
   { id: "dashboard",    label: "Dashboard",    icon: LayoutDashboard },
@@ -36,22 +21,23 @@ function Sidebar({ activePage, onNavigate, isOpen, onClose }) {
       {/* Sidebar panel */}
       <aside
         className={`
-          fixed top-0 left-0 z-50 h-screen w-64 bg-gray-900 border-r border-gray-800
-          flex flex-col transition-transform duration-300 ease-in-out
+          fixed top-0 left-0 z-50 h-screen w-64
+          bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800
+          flex flex-col transition-all duration-300 ease-in-out
           lg:translate-x-0
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         {/* ── Header / Brand ── */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-800">
-          <h2 className="text-xl font-bold text-white tracking-tight">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
             💰 FinDash
           </h2>
           {/* Close button — only visible on mobile */}
           <button
             id="sidebar-close"
             onClick={onClose}
-            className="text-gray-400 hover:text-white lg:hidden cursor-pointer"
+            className="text-gray-400 hover:text-gray-900 dark:hover:text-white lg:hidden cursor-pointer"
           >
             <X size={20} />
           </button>
@@ -76,8 +62,8 @@ function Sidebar({ activePage, onNavigate, isOpen, onClose }) {
                   transition-all duration-200 cursor-pointer
                   ${
                     isActive
-                      ? "bg-indigo-600/20 text-indigo-400 border border-indigo-500/30"
-                      : "text-gray-400 hover:bg-gray-800 hover:text-gray-200"
+                      ? "bg-indigo-100 dark:bg-indigo-600/20 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30"
+                      : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200"
                   }
                 `}
               >
@@ -89,8 +75,8 @@ function Sidebar({ activePage, onNavigate, isOpen, onClose }) {
         </nav>
 
         {/* ── Footer ── */}
-        <div className="px-6 py-4 border-t border-gray-800">
-          <p className="text-xs text-gray-500">© 2026 FinDash</p>
+        <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-800">
+          <p className="text-xs text-gray-400 dark:text-gray-500">© 2026 FinDash</p>
         </div>
       </aside>
     </>

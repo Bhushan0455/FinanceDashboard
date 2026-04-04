@@ -7,29 +7,6 @@ import {
   Legend,
 } from "recharts";
 
-/**
- * CategoryBreakdownChart
- *
- * RESPONSIBILITY:
- * Displays a donut/pie chart showing how expenses are split across categories.
- * This answers the question: "Where is my money going?"
- *
- * EXPECTED DATA FORMAT (passed via the `data` prop):
- *   [
- *     { category: "Housing",       total: 4200 },
- *     { category: "Food",          total: 495 },
- *     { category: "Bills",         total: 626 },
- *     ...
- *   ]
- *
- * This data is produced by the `getCategoryTotals()` helper function from
- * `src/utils/helpers.js`. It filters only expense transactions, groups them
- * by category, sums each group, and sorts from highest to lowest.
- *
- * PROPS:
- *   - data (array): Array of objects with `category` (string) and `total` (number)
- */
-
 // A curated color palette for pie slices — one per category
 const COLORS = [
   "#818cf8", // indigo  — Housing
@@ -50,9 +27,9 @@ function CustomTooltip({ active, payload }) {
   const { category, total } = payload[0].payload;
 
   return (
-    <div className="rounded-lg bg-gray-800 border border-gray-700 px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white">{category}</p>
-      <p className="text-sm text-gray-300">
+    <div className="rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-gray-900 dark:text-white">{category}</p>
+      <p className="text-sm text-gray-600 dark:text-gray-300">
         ${total.toLocaleString("en-US")}
       </p>
     </div>
@@ -69,7 +46,7 @@ function CustomLegend({ payload }) {
             className="inline-block w-2.5 h-2.5 rounded-full"
             style={{ backgroundColor: entry.color }}
           />
-          <span className="text-gray-400">{entry.value}</span>
+          <span className="text-gray-600 dark:text-gray-400">{entry.value}</span>
         </li>
       ))}
     </ul>
@@ -78,9 +55,9 @@ function CustomLegend({ payload }) {
 
 function CategoryBreakdownChart({ data }) {
   return (
-    <div className="rounded-xl bg-gray-800/60 border border-gray-700/50 p-5 flex flex-col h-full">
+    <div className="rounded-xl bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/50 p-5 flex flex-col h-full shadow-sm dark:shadow-none">
       {/* Card header */}
-      <h3 className="text-base font-semibold text-white mb-4">
+      <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-4">
         Spending by Category
       </h3>
 

@@ -1,30 +1,6 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 
-/**
- * AddEditTransactionModal
- *
- * RESPONSIBILITY:
- * A single modal component that handles BOTH adding and editing transactions.
- * It renders a form with controlled inputs for all transaction fields.
- *
- * HOW IT KNOWS ADD vs EDIT MODE:
- *   - If `transaction` prop is null   → ADD mode (form starts empty)
- *   - If `transaction` prop is an object → EDIT mode (form pre-fills with that transaction's data)
- *
- * FORM STATE INITIALIZATION:
- *   - ADD:  all fields start with default/empty values
- *   - EDIT: all fields start with the values from the `transaction` prop
- *   useEffect watches the `transaction` prop — when it changes, the form resets.
- *
- * PROPS:
- *   - isOpen (boolean): Whether the modal is visible
- *   - onClose (function): Called to close the modal (resets form + hides modal)
- *   - onSave (function): Called with the form data when the user clicks Save.
- *     The parent decides whether to add a new entry or update an existing one.
- *   - transaction (object | null): If editing, the transaction to edit. If adding, null.
- */
-
 // Available categories — same list used across the app
 const CATEGORIES = [
   "Salary",
@@ -134,9 +110,9 @@ function AddEditTransactionModal({ isOpen, onClose, onSave, transaction }) {
 
   // Shared input styling
   const inputClass =
-    "w-full bg-gray-800 border border-gray-700 text-gray-200 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-indigo-500 transition-colors duration-200";
-  const labelClass = "block text-sm font-medium text-gray-400 mb-1.5";
-  const errorClass = "text-xs text-red-400 mt-1";
+    "w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-200 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200 shadow-sm dark:shadow-none";
+  const labelClass = "block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1.5";
+  const errorClass = "text-xs text-red-500 dark:text-red-400 mt-1";
 
   return (
     <>
@@ -149,18 +125,18 @@ function AddEditTransactionModal({ isOpen, onClose, onSave, transaction }) {
       {/* ── Modal Panel ── */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
-          className="w-full max-w-md rounded-xl bg-gray-900 border border-gray-700/50 shadow-2xl"
+          className="w-full max-w-md rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700/50 shadow-2xl"
           onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-800">
-            <h2 className="text-lg font-semibold text-white">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-800">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
               {isEditMode ? "Edit Transaction" : "Add Transaction"}
             </h2>
             <button
               id="modal-close"
               onClick={onClose}
-              className="text-gray-400 hover:text-white transition-colors cursor-pointer"
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
             >
               <X size={20} />
             </button>
@@ -254,7 +230,7 @@ function AddEditTransactionModal({ isOpen, onClose, onSave, transaction }) {
                 id="modal-cancel"
                 type="button"
                 onClick={onClose}
-                className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-400 hover:text-white transition-colors cursor-pointer"
+                className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-transparent transition-colors cursor-pointer"
               >
                 Cancel
               </button>

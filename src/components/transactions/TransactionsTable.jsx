@@ -1,31 +1,5 @@
 import { ArrowUpRight, ArrowDownLeft, Pencil } from "lucide-react";
 
-/**
- * TransactionsTable
- *
- * RESPONSIBILITY:
- * Displays a list of transactions in a clean, responsive table format.
- * This is purely presentational — it receives an already-filtered and
- * already-sorted array of transactions and just renders them.
- *
- * ROLE-BASED BEHAVIOR:
- *   - role === "admin"  → An "Edit" button appears in each row
- *   - role === "viewer" → No edit button; the table is read-only
- *
- * HOW FILTERED DATA ARRIVES:
- * The parent component:
- *   1. Starts with the full `transactions` array
- *   2. Applies search, type, and category filters
- *   3. Applies sorting
- *   4. Passes the resulting array as the `transactions` prop
- * This component never filters or sorts on its own.
- *
- * PROPS:
- *   - transactions (array): Pre-filtered & sorted array of transaction objects.
- *     Each object has: { id, date, description, amount, type, category }
- *   - role (string): "admin" or "viewer" — controls whether Edit action is shown
- *   - onEdit (function): Called with the transaction object when Admin clicks Edit
- */
 function TransactionsTable({ transactions, role, onEdit }) {
   const isAdmin = role === "admin";
 
@@ -44,30 +18,30 @@ function TransactionsTable({ transactions, role, onEdit }) {
     "$" + amount.toLocaleString("en-US", { minimumFractionDigits: 2 });
 
   return (
-    <div className="rounded-xl bg-gray-800/60 border border-gray-700/50 overflow-hidden">
+    <div className="rounded-xl bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/50 overflow-hidden shadow-sm dark:shadow-none">
       {/* ── Desktop Table (hidden on small screens) ── */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-700/50">
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+            <tr className="border-b border-gray-200 dark:border-gray-700/50">
+              <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Date
               </th>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Description
               </th>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Category
               </th>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Type
               </th>
-              <th className="text-right px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              <th className="text-right px-5 py-3.5 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Amount
               </th>
               {/* Actions column header — only for Admin */}
               {isAdmin && (
-                <th className="text-center px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                <th className="text-center px-5 py-3.5 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Actions
                 </th>
               )}
@@ -77,21 +51,21 @@ function TransactionsTable({ transactions, role, onEdit }) {
             {transactions.map((t) => (
               <tr
                 key={t.id}
-                className="border-b border-gray-700/30 hover:bg-gray-700/20 transition-colors duration-150"
+                className="border-b border-gray-100 dark:border-gray-700/30 hover:bg-gray-50 dark:hover:bg-gray-700/20 transition-colors duration-150"
               >
                 {/* Date */}
-                <td className="px-5 py-4 text-gray-300 whitespace-nowrap">
+                <td className="px-5 py-4 text-gray-600 dark:text-gray-300 whitespace-nowrap">
                   {formatDate(t.date)}
                 </td>
 
                 {/* Description */}
-                <td className="px-5 py-4 text-white font-medium">
+                <td className="px-5 py-4 text-gray-900 dark:text-white font-medium">
                   {t.description}
                 </td>
 
                 {/* Category badge */}
                 <td className="px-5 py-4">
-                  <span className="inline-block rounded-full bg-gray-700/60 px-2.5 py-1 text-xs font-medium text-gray-300">
+                  <span className="inline-block rounded-full bg-gray-100 dark:bg-gray-700/60 px-2.5 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-transparent">
                     {t.category}
                   </span>
                 </td>
@@ -130,7 +104,7 @@ function TransactionsTable({ transactions, role, onEdit }) {
                     <button
                       id={`btn-edit-${t.id}`}
                       onClick={() => onEdit(t)}
-                      className="inline-flex items-center gap-1 rounded-lg bg-gray-700/60 hover:bg-gray-600/60 px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+                      className="inline-flex items-center gap-1 rounded-lg bg-gray-100 dark:bg-gray-700/60 hover:bg-gray-200 dark:hover:bg-gray-600/60 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 cursor-pointer"
                     >
                       <Pencil size={12} />
                       Edit
@@ -144,7 +118,7 @@ function TransactionsTable({ transactions, role, onEdit }) {
       </div>
 
       {/* ── Mobile Cards (shown on small screens only) ── */}
-      <div className="md:hidden divide-y divide-gray-700/30">
+      <div className="md:hidden divide-y divide-gray-100 dark:divide-gray-700/30">
         {transactions.map((t) => (
           <div key={t.id} className="px-4 py-4 flex items-center gap-3">
             {/* Icon */}
@@ -164,7 +138,7 @@ function TransactionsTable({ transactions, role, onEdit }) {
 
             {/* Description + meta */}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">
+              <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                 {t.description}
               </p>
               <p className="text-xs text-gray-500 mt-0.5">
@@ -187,7 +161,7 @@ function TransactionsTable({ transactions, role, onEdit }) {
               <button
                 id={`btn-edit-mobile-${t.id}`}
                 onClick={() => onEdit(t)}
-                className="shrink-0 rounded-lg bg-gray-700/60 hover:bg-gray-600/60 p-2 text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
+                className="shrink-0 rounded-lg bg-gray-100 dark:bg-gray-700/60 hover:bg-gray-200 dark:hover:bg-gray-600/60 p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 cursor-pointer"
               >
                 <Pencil size={14} />
               </button>

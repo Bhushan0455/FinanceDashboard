@@ -1,6 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
+/* Tell Tailwind v4 to use the "dark" CSS class on <html> for dark mode,
+   instead of the default prefers-color-scheme media query.
+   This allows our ThemeToggle component to control the theme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ══════════════════════════════════════════════════════════════
    BASE LAYER — low-specificity defaults that Tailwind utilities
    can still override. In Tailwind v4, @layer base ensures these
@@ -26,12 +31,19 @@
 
   /* ── Body ── */
   body {
+    background-color: #f8fafc; /* light mode: slate-50 */
+    color: #1e293b;            /* light mode: slate-800 */
+    min-height: 100vh;
+    min-height: 100dvh;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Dark mode body overrides */
+  .dark body {
     background-color: #030712; /* gray-950 */
     color: #f9fafb;
-    min-height: 100vh;
-    min-height: 100dvh; /* dynamic viewport height — avoids mobile address bar issues */
-    line-height: 1.6;
-    overflow-x: hidden; /* prevent horizontal scroll from fixed sidebar */
   }
 
   /* ── Root container — ensures React root fills the viewport ── */

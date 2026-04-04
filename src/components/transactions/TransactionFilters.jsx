@@ -1,37 +1,5 @@
 import { Search, Filter, ArrowUpDown } from "lucide-react";
 
-/**
- * TransactionFilters
- *
- * RESPONSIBILITY:
- * Renders the filter/search/sort controls for the transactions page.
- * This is purely a UI component — it does NOT filter data itself.
- * It receives the current filter values and setter functions from its parent,
- * making every input a "controlled input."
- *
- * CONTROLLED INPUT:
- * A controlled input is an input whose value is driven by React state.
- *   - The `value` attribute is set to a state variable
- *   - The `onChange` handler updates that state variable
- *   - React re-renders the input with the new value
- * This means React is the "single source of truth" for what the input shows.
- *
- * PROPS:
- *   - searchText (string): Current search query text
- *   - onSearchChange (function): Called with new text when user types in the search box
- *
- *   - typeFilter (string): Current type filter — "all", "income", or "expense"
- *   - onTypeFilterChange (function): Called with new type value when user picks a type
- *
- *   - categoryFilter (string): Current category filter — "all" or a specific category name
- *   - onCategoryFilterChange (function): Called with new category when user picks one
- *
- *   - sortBy (string): Current sort key — "date-desc", "date-asc", "amount-desc", "amount-asc"
- *   - onSortChange (function): Called with new sort key when user picks a sort option
- *
- *   - categories (array of strings): List of unique category names to populate the dropdown
- */
-
 function TransactionFilters({
   searchText,
   onSearchChange,
@@ -45,7 +13,7 @@ function TransactionFilters({
 }) {
   // Shared styling for all select dropdowns
   const selectClass =
-    "bg-gray-800 border border-gray-700 text-gray-300 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-indigo-500 transition-colors duration-200 cursor-pointer appearance-none";
+    "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200 cursor-pointer appearance-none shadow-sm dark:shadow-none";
 
   return (
     <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3">
@@ -62,7 +30,7 @@ function TransactionFilters({
           placeholder="Search transactions..."
           value={searchText}                          // controlled by state
           onChange={(e) => onSearchChange(e.target.value)} // updates state on every keystroke
-          className="w-full bg-gray-800 border border-gray-700 text-gray-200 text-sm rounded-lg pl-9 pr-3 py-2.5 placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors duration-200"
+          className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-200 text-sm rounded-lg pl-9 pr-3 py-2.5 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200 shadow-sm dark:shadow-none"
         />
       </div>
 

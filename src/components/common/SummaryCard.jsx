@@ -1,21 +1,3 @@
-/**
- * SummaryCard (Reusable)
- *
- * RESPONSIBILITY:
- * A generic card that displays a single financial metric.
- * It is purely presentational — it just renders whatever data it receives.
- * No calculations happen inside this component.
- *
- * PROPS:
- *   - title (string): Label shown above the value — e.g. "Total Income"
- *   - value (string): The formatted value to display — e.g. "$23,650"
- *   - icon (React element): A Lucide icon component already rendered — e.g. <DollarSign />
- *   - trend (string, optional): A short trend indicator — e.g. "+12%" or "54%"
- *   - trendLabel (string, optional): Describes the trend — e.g. "vs last month"
- *   - trendDirection (string, optional): "up", "down", or "neutral" — controls the trend color
- *   - accentColor (string, optional): Tailwind color class for the icon background — e.g. "bg-emerald-500/20"
- *   - iconColor (string, optional): Tailwind text color class for the icon — e.g. "text-emerald-400"
- */
 function SummaryCard({
   title,
   value,
@@ -28,23 +10,23 @@ function SummaryCard({
 }) {
   // Pick the right color for the trend text
   const trendColors = {
-    up: "text-emerald-400",
-    down: "text-red-400",
-    neutral: "text-gray-400",
+    up: "text-emerald-500 dark:text-emerald-400",
+    down: "text-red-500 dark:text-red-400",
+    neutral: "text-gray-500 dark:text-gray-400",
   };
 
   return (
-    <div className="rounded-xl bg-gray-800/60 border border-gray-700/50 p-5 flex flex-col gap-4 hover:border-gray-600/50 transition-all duration-300">
+    <div className="rounded-xl bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/50 p-5 flex flex-col gap-4 hover:border-gray-300 dark:hover:border-gray-600/50 transition-all duration-300 shadow-sm dark:shadow-none">
       {/* Top row: icon + title */}
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-gray-400">{title}</span>
+        <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</span>
         <div className={`rounded-lg p-2 ${accentColor}`}>
           <span className={iconColor}>{icon}</span>
         </div>
       </div>
 
       {/* Value */}
-      <p className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+      <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
         {value}
       </p>
 
@@ -54,7 +36,7 @@ function SummaryCard({
           <span className={`font-semibold ${trendColors[trendDirection]}`}>
             {trend}
           </span>
-          {trendLabel && <span className="text-gray-500">{trendLabel}</span>}
+          {trendLabel && <span className="text-gray-400 dark:text-gray-500">{trendLabel}</span>}
         </div>
       )}
     </div>

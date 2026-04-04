@@ -1,23 +1,5 @@
 import { TrendingUp, BarChart3, Receipt, AlertTriangle } from "lucide-react";
 
-/**
- * InsightsPanel
- *
- * RESPONSIBILITY:
- * Displays 4 financial insight cards derived from transaction data.
- * All data is calculated by helper functions in the parent and passed
- * as props — nothing is hardcoded. If transactions change, insights
- * update automatically.
- *
- * PROPS:
- *   - insights (object): From getInsights() helper — contains:
- *       • highestSpendingCategory: { category, total }
- *       • largestExpense: { description, amount, date, category }
- *       • savingsRate: number (0–100)
- *       • totalTransactions: number
- *   - monthlyData (array): From getMonthlyData() helper — array of
- *       { month, income, expenses } objects, used to compare months
- */
 function InsightsPanel({ insights, monthlyData }) {
   // ── Month-over-month expense comparison ──────────────────
   // Compare the last two months to see if expenses went up or down.
@@ -124,20 +106,20 @@ function InsightsPanel({ insights, monthlyData }) {
         {insightCards.map((card) => (
           <div
             key={card.id}
-            className="rounded-xl bg-gray-800/60 border border-gray-700/50 p-5 hover:border-gray-600/50 transition-all duration-300"
+            className="rounded-xl bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/50 p-5 hover:border-gray-300 dark:hover:border-gray-600/50 transition-all duration-300 shadow-sm dark:shadow-none"
           >
             {/* Icon + Title */}
             <div className="flex items-center gap-3 mb-3">
               <div className={`rounded-lg p-2.5 ${card.accentColor}`}>
                 <span className={card.iconColor}>{card.icon}</span>
               </div>
-              <span className="text-sm font-medium text-gray-400">
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
                 {card.title}
               </span>
             </div>
 
             {/* Value */}
-            <p className="text-2xl font-bold text-white mb-1.5">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white mb-1.5">
               {card.value}
             </p>
 

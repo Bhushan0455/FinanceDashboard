@@ -9,35 +9,13 @@ import {
   Legend,
 } from "recharts";
 
-/**
- * MonthlyTrendChart
- *
- * RESPONSIBILITY:
- * Displays a time-based area chart showing income vs expenses across months.
- * This makes it easy to spot trends — are expenses growing? Is income stable?
- *
- * EXPECTED DATA FORMAT (passed via the `data` prop):
- *   [
- *     { month: "Jan", income: 6000, expenses: 2054 },
- *     { month: "Feb", income: 5650, expenses: 1994 },
- *     ...
- *   ]
- *
- * This data is produced by the `getMonthlyData()` helper function from
- * `src/utils/helpers.js`. The raw transactions are grouped by month,
- * and income/expenses are summed for each month.
- *
- * PROPS:
- *   - data (array): Array of monthly objects with month, income, and expenses keys
- */
-
 // Custom tooltip that appears when hovering over the chart
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload || payload.length === 0) return null;
 
   return (
-    <div className="rounded-lg bg-gray-800 border border-gray-700 px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white mb-2">{label}</p>
+    <div className="rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-gray-900 dark:text-white mb-2">{label}</p>
       {payload.map((entry) => (
         <p key={entry.name} className="text-sm" style={{ color: entry.color }}>
           {entry.name}: ${entry.value.toLocaleString("en-US")}
@@ -49,9 +27,9 @@ function CustomTooltip({ active, payload, label }) {
 
 function MonthlyTrendChart({ data }) {
   return (
-    <div className="rounded-xl bg-gray-800/60 border border-gray-700/50 p-5 flex flex-col h-full">
+    <div className="rounded-xl bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/50 p-5 flex flex-col h-full shadow-sm dark:shadow-none">
       {/* Card header */}
-      <h3 className="text-base font-semibold text-white mb-4">
+      <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-4">
         Monthly Trend
       </h3>
 

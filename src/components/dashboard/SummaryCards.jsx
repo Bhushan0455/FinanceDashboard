@@ -1,21 +1,6 @@
 import { Wallet, TrendingUp, TrendingDown, PiggyBank } from "lucide-react";
 import SummaryCard from "../common/SummaryCard";
 
-/**
- * SummaryCards
- *
- * RESPONSIBILITY:
- * A container that renders all 4 summary cards in a responsive grid.
- * It receives pre-calculated values from its parent and maps them to
- * individual SummaryCard components. This keeps the cards dumb/presentational
- * and the data logic outside.
- *
- * PROPS:
- *   - totalIncome (number): Sum of all income transactions
- *   - totalExpenses (number): Sum of all expense transactions
- *   - balance (number): Income minus expenses
- *   - savingsRate (number): Percentage of income saved (0–100)
- */
 function SummaryCards({ totalIncome, totalExpenses, balance, savingsRate }) {
   // Format a number as currency: 23650 → "$23,650"
   const formatCurrency = (amount) =>

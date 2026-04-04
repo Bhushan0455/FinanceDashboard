@@ -1,11 +1,8 @@
 import { useState, useMemo } from "react";
 import "./App.css";
-
-// ─── Data ────────────────────────────────────────────────────
+import useLocalStorage from "./utils/useLocalStorage";
 // Imported as initial seed, then stored in state so Admin can add/edit
 import initialTransactions from "./data/transactions";
-
-// ─── Helper Functions ────────────────────────────────────────
 import {
   getTotalIncome,
   getTotalExpenses,
@@ -14,26 +11,16 @@ import {
   getMonthlyData,
   getInsights,
 } from "./utils/helpers";
-
-// ─── Layout Components ──────────────────────────────────────
 import Sidebar from "./components/layout/Sidebar";
 import Topbar from "./components/layout/Topbar";
-
-// ─── Dashboard Components ───────────────────────────────────
 import SummaryCards from "./components/dashboard/SummaryCards";
 import MonthlyTrendChart from "./components/dashboard/MonthlyTrendChart";
 import CategoryBreakdownChart from "./components/dashboard/CategoryBreakdownChart";
-
-// ─── Transaction Components ─────────────────────────────────
 import TransactionsHeader from "./components/transactions/TransactionsHeader";
 import TransactionFilters from "./components/transactions/TransactionFilters";
 import TransactionsTable from "./components/transactions/TransactionsTable";
 import AddEditTransactionModal from "./components/transactions/AddEditTransactionModal";
-
-// ─── Common Components ──────────────────────────────────────
 import EmptyState from "./components/common/EmptyState";
-
-// ─── Insights Components ────────────────────────────────────
 import InsightsPanel from "./components/insights/InsightsPanel";
 
 // Page titles for the Topbar
@@ -44,35 +31,22 @@ const PAGE_TITLES = {
 };
 
 function App() {
-  // ══════════════════════════════════════════════════════════
   //  RAW STATE — values that can change via user interaction
-  // ══════════════════════════════════════════════════════════
-
-  // ─── Layout & Role ────────────────────────────────────────
-  const [role, setRole] = useState("admin");               // "admin" or "viewer"
+  const [role, setRole] = useLocalStorage("findash-role", "admin");
   const [activePage, setActivePage] = useState("dashboard"); // current page
   const [sidebarOpen, setSidebarOpen] = useState(false);     // mobile sidebar toggle
-
-  // ─── Transactions (mutable array) ─────────────────────────
-  // Stored in state so Admin can add/edit. The initial mock data
-  // is the seed. Changes persist for the current browser session.
-  const [allTransactions, setAllTransactions] = useState(initialTransactions);
-
-  // ─── Modal ────────────────────────────────────────────────
+  // Stored in localStorage so Admin's additions/edits survive page refresh.
+  // The initial mock data is the seed on first visit.
+  const [allTransactions, setAllTransactions] = useLocalStorage("findash-transactions", initialTransactions);
   // isModalOpen: controls visibility of AddEditTransactionModal
   // editingTransaction: null = add mode, object = edit mode
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState(null);
-
-  // ─── Filters / Search / Sort ──────────────────────────────
   const [searchText, setSearchText] = useState("");            // search query
   const [typeFilter, setTypeFilter] = useState("all");         // "all" | "income" | "expense"
   const [categoryFilter, setCategoryFilter] = useState("all"); // "all" | category name
   const [sortBy, setSortBy] = useState("date-desc");           // sort key
-
-  // ══════════════════════════════════════════════════════════
   //  HANDLER FUNCTIONS — respond to user actions
-  // ══════════════════════════════════════════════════════════
 
   // Open modal in ADD mode
   const handleAddClick = () => {
@@ -108,10 +82,7 @@ function App() {
       setAllTransactions((prev) => [...prev, { ...formData, id: newId }]);
     }
   };
-
-  // ══════════════════════════════════════════════════════════
   //  DERIVED STATE — computed from raw state using useMemo
-  // ══════════════════════════════════════════════════════════
 
   // Unique categories for the filter dropdown
   const uniqueCategories = useMemo(() => {
@@ -172,14 +143,10 @@ function App() {
   const monthlyData = useMemo(() => getMonthlyData(allTransactions), [allTransactions]);
   const categoryTotals = useMemo(() => getCategoryTotals(allTransactions), [allTransactions]);
   const insights = useMemo(() => getInsights(allTransactions), [allTransactions]);
-
-  // ══════════════════════════════════════════════════════════
   //  PAGE CONTENT — renders different content based on activePage
-  // ══════════════════════════════════════════════════════════
 
   const renderPageContent = () => {
     switch (activePage) {
-      // ─── Dashboard Page ─────────────────────────────────────
       case "dashboard":
         return (
           <div className="space-y-6">
@@ -198,14 +165,13 @@ function App() {
             </div>
           </div>
         );
-
-      // ─── Transactions Page ──────────────────────────────────
       case "transactions":
         return (
           <div className="space-y-5">
             {/* Header with Add button (Admin only) */}
             <TransactionsHeader
               role={role}
+              transactions={filteredTransactions}
               onAddClick={handleAddClick}
             />
 
@@ -234,8 +200,6 @@ function App() {
             )}
           </div>
         );
-
-      // ─── Insights Page ──────────────────────────────────────
       case "insights":
         return (
           <InsightsPanel
@@ -249,21 +213,8 @@ function App() {
     }
   };
 
-  // ══════════════════════════════════════════════════════════
-  //  RENDER — the final layout assembly
-  // ══════════════════════════════════════════════════════════
-  //
-  //  ┌──────────┬──────────────────────────────────┐
-  //  │          │  Topbar (title + role switcher)  │
-  //  │ Sidebar  ├──────────────────────────────────┤
-  //  │  (nav)   │                                  │
-  //  │          │       Page Content Area          │
-  //  │          │  (dashboard / transactions /     │
-  //  │          │   insights based on activePage)  │
-  //  └──────────┴──────────────────────────────────┘
-
   return (
-    <div className="flex min-h-screen bg-gray-950 text-white overflow-x-hidden">
+    <div className="flex min-h-screen bg-slate-50 dark:bg-gray-950 text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
       {/* ── Sidebar ── always visible on lg+, slide-in overlay on mobile */}
       <Sidebar
         activePage={activePage}
