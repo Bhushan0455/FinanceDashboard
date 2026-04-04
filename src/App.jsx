@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
 import "./App.css";
 
-// Data
-import transactions from "./data/transactions";
+// Data — imported as initial seed, then stored in state so it can be modified
+import initialTransactions from "./data/transactions";
 
 // Helpers
 import {
@@ -20,6 +20,56 @@ function App() {
   const [activePage, setActivePage] = useState("dashboard"); // current page
   const [sidebarOpen, setSidebarOpen] = useState(false);     // mobile sidebar
 
+  // ─── Transactions State ───────────────────────────────────
+  // Transactions are stored in state (not just imported) so that
+  // Admin can add new ones and edit existing ones. Changes persist
+  // for the current session (not saved to a database).
+  const [allTransactions, setAllTransactions] = useState(initialTransactions);
+
+  // ─── Modal State ──────────────────────────────────────────
+  // Controls whether the AddEditTransactionModal is open,
+  // and which transaction is being edited (null = add mode).
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingTransaction, setEditingTransaction] = useState(null);
+
+  // ── Open modal in ADD mode (empty form) ──
+  const handleAddClick = () => {
+    setEditingTransaction(null); // null = add mode
+    setIsModalOpen(true);
+  };
+
+  // ── Open modal in EDIT mode (pre-filled form) ──
+  const handleEditClick = (transaction) => {
+    setEditingTransaction(transaction); // pass the transaction to edit
+    setIsModalOpen(true);
+  };
+
+  // ── Close modal ──
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setEditingTransaction(null);
+  };
+
+  // ── Save handler — works for both add and edit ──
+  // If the data has an `id`, it's an edit → update the matching entry.
+  // If it has no `id`, it's a new transaction → assign a new id and append.
+  const handleSaveTransaction = (formData) => {
+    if (formData.id) {
+      // EDIT: replace the transaction with the matching id
+      setAllTransactions((prev) =>
+        prev.map((t) => (t.id === formData.id ? { ...t, ...formData } : t))
+      );
+    } else {
+      // ADD: create a new transaction with a unique id
+      const newId =
+        allTransactions.length > 0
+          ? Math.max(...allTransactions.map((t) => t.id)) + 1
+          : 1;
+
+      setAllTransactions((prev) => [...prev, { ...formData, id: newId }]);
+    }
+  };
+
   // ─── Filter / Search / Sort State ─────────────────────────
   // These 4 state variables drive the TransactionFilters component.
   // Each one is a "controlled input" value.
@@ -29,12 +79,12 @@ function App() {
   const [sortBy, setSortBy] = useState("date-desc");          // sort key
 
   // ─── Unique Categories (for the filter dropdown) ──────────
-  // useMemo: only recalculated when `transactions` changes.
-  // Since `transactions` is static mock data, this runs once.
+  // Recalculated when allTransactions changes (e.g., when a new
+  // transaction with a new category is added).
   const uniqueCategories = useMemo(() => {
-    const cats = new Set(transactions.map((t) => t.category));
+    const cats = new Set(allTransactions.map((t) => t.category));
     return [...cats].sort(); // alphabetical order
-  }, [transactions]);
+  }, [allTransactions]);
 
   // ─── Filtered & Sorted Transactions ───────────────────────
   // This is the core logic. useMemo ensures we don't re-filter
@@ -54,7 +104,7 @@ function App() {
   //   re-renders down the tree.
 
   const filteredTransactions = useMemo(() => {
-    let result = [...transactions];
+    let result = [...allTransactions];
 
     // ── Step 1: Search ──────────────────────────────────────
     // Match the search text against description OR category (case-insensitive)
@@ -103,20 +153,20 @@ function App() {
     }
 
     return result;
-  }, [searchText, typeFilter, categoryFilter, sortBy]);
-  // ↑ DEPENDENCY ARRAY: useMemo will re-run ONLY when one of these changes.
-  // `transactions` is a static import, so it never changes and doesn't need
-  // to be listed (though adding it wouldn't hurt).
+  }, [allTransactions, searchText, typeFilter, categoryFilter, sortBy]);
+  // ↑ DEPENDENCY ARRAY: useMemo will re-run when any filter changes,
+  // OR when allTransactions changes (e.g., after add/edit).
 
   // ─── Derived Dashboard Data ───────────────────────────────
-  // These use the FULL transactions array (not filtered),
+  // These use the FULL allTransactions array (not filtered),
   // because summary cards and charts should always reflect all data.
-  const totalIncome = useMemo(() => getTotalIncome(transactions), [transactions]);
-  const totalExpenses = useMemo(() => getTotalExpenses(transactions), [transactions]);
-  const balance = useMemo(() => getBalance(transactions), [transactions]);
-  const monthlyData = useMemo(() => getMonthlyData(transactions), [transactions]);
-  const categoryTotals = useMemo(() => getCategoryTotals(transactions), [transactions]);
-  const insights = useMemo(() => getInsights(transactions), [transactions]);
+  // They automatically update when a transaction is added/edited.
+  const totalIncome = useMemo(() => getTotalIncome(allTransactions), [allTransactions]);
+  const totalExpenses = useMemo(() => getTotalExpenses(allTransactions), [allTransactions]);
+  const balance = useMemo(() => getBalance(allTransactions), [allTransactions]);
+  const monthlyData = useMemo(() => getMonthlyData(allTransactions), [allTransactions]);
+  const categoryTotals = useMemo(() => getCategoryTotals(allTransactions), [allTransactions]);
+  const insights = useMemo(() => getInsights(allTransactions), [allTransactions]);
 
   // ─── Render (placeholder for now) ─────────────────────────
   // Full page assembly will come in a later step.
@@ -127,10 +177,13 @@ function App() {
           Finance Dashboard 🚀
         </h1>
         <p className="text-gray-400">
-          Filtered: {filteredTransactions.length} / {transactions.length} transactions
+          Filtered: {filteredTransactions.length} / {allTransactions.length} transactions
         </p>
         <p className="text-gray-400">
           Balance: ${balance.toLocaleString()} | Role: {role} | Page: {activePage}
+        </p>
+        <p className="text-gray-400">
+          Modal: {isModalOpen ? "open" : "closed"} | Editing: {editingTransaction ? editingTransaction.id : "none"}
         </p>
       </div>
     </div>
