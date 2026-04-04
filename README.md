@@ -78,4 +78,4 @@ npm run build
 ```
 
 ---
-*Created as part of the Frontend Developer Internship Assignment.*
+
