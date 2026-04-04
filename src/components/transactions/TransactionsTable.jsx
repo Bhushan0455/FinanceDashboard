@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowDownLeft } from "lucide-react";
+import { ArrowUpRight, ArrowDownLeft, Pencil } from "lucide-react";
 
 /**
  * TransactionsTable
@@ -7,6 +7,10 @@ import { ArrowUpRight, ArrowDownLeft } from "lucide-react";
  * Displays a list of transactions in a clean, responsive table format.
  * This is purely presentational — it receives an already-filtered and
  * already-sorted array of transactions and just renders them.
+ *
+ * ROLE-BASED BEHAVIOR:
+ *   - role === "admin"  → An "Edit" button appears in each row
+ *   - role === "viewer" → No edit button; the table is read-only
  *
  * HOW FILTERED DATA ARRIVES:
  * The parent component:
@@ -19,8 +23,12 @@ import { ArrowUpRight, ArrowDownLeft } from "lucide-react";
  * PROPS:
  *   - transactions (array): Pre-filtered & sorted array of transaction objects.
  *     Each object has: { id, date, description, amount, type, category }
+ *   - role (string): "admin" or "viewer" — controls whether Edit action is shown
+ *   - onEdit (function): Called with the transaction object when Admin clicks Edit
  */
-function TransactionsTable({ transactions }) {
+function TransactionsTable({ transactions, role, onEdit }) {
+  const isAdmin = role === "admin";
+
   // Format date: "2026-01-15" → "Jan 15, 2026"
   const formatDate = (dateStr) => {
     const date = new Date(dateStr + "T00:00:00"); // avoid timezone shift
@@ -57,6 +65,12 @@ function TransactionsTable({ transactions }) {
               <th className="text-right px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
                 Amount
               </th>
+              {/* Actions column header — only for Admin */}
+              {isAdmin && (
+                <th className="text-center px-5 py-3.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  Actions
+                </th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -109,6 +123,20 @@ function TransactionsTable({ transactions }) {
                   {t.type === "income" ? "+" : "−"}
                   {formatAmount(t.amount)}
                 </td>
+
+                {/* Edit button — only for Admin */}
+                {isAdmin && (
+                  <td className="px-5 py-4 text-center">
+                    <button
+                      id={`btn-edit-${t.id}`}
+                      onClick={() => onEdit(t)}
+                      className="inline-flex items-center gap-1 rounded-lg bg-gray-700/60 hover:bg-gray-600/60 px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+                    >
+                      <Pencil size={12} />
+                      Edit
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
@@ -153,6 +181,17 @@ function TransactionsTable({ transactions }) {
               {t.type === "income" ? "+" : "−"}
               {formatAmount(t.amount)}
             </p>
+
+            {/* Edit button — Admin only, on mobile */}
+            {isAdmin && (
+              <button
+                id={`btn-edit-mobile-${t.id}`}
+                onClick={() => onEdit(t)}
+                className="shrink-0 rounded-lg bg-gray-700/60 hover:bg-gray-600/60 p-2 text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
+              >
+                <Pencil size={14} />
+              </button>
+            )}
           </div>
         ))}
       </div>
