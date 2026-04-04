@@ -79,5 +79,5 @@ npm run build
 
 ---
 ## 🌐 Live Demo
-https://bhushan0455.github.io/Finance-Dashboard/
+https://bhushan0455.github.io/FinanceDashboard/
 
