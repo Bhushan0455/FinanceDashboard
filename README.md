@@ -11,6 +11,9 @@ The dashboard allows users to:
 
 ---
 
+## 🌐 Live Demo
+https://bhushan0455.github.io/FinanceDashboard/
+
 ##  Tech Stack
 - React (with Vite)
 - Tailwind CSS
@@ -19,6 +22,16 @@ The dashboard allows users to:
 - GitHub Pages (deployment)
 
 ---
+## 📸 Screenshots
+
+### Dashboard
+![Dashboard](./screenshots/dashboard.png)
+
+### Transactions
+![Transactions](./screenshots/transactions.png)
+
+### Charts
+![Charts](./screenshots/charts.png)
 
 ##  Features
 - Dashboard with summary cards (Income, Expenses, Balance)
@@ -104,6 +117,5 @@ npm run build
 ```
 
 ---
-## 🌐 Live Demo
-https://bhushan0455.github.io/FinanceDashboard/
+
 
