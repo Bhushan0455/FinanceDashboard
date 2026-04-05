@@ -1,6 +1,6 @@
 # Finance Dashboard
 
-## 📖 Overview
+##  Overview
 This project is a Finance Dashboard that allows users to track their income and expenses, view insights, and analyze spending patterns through charts and summaries.
 
 The dashboard allows users to:
@@ -11,7 +11,7 @@ The dashboard allows users to:
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 - React (with Vite)
 - Tailwind CSS
 - Recharts (for charts)
@@ -20,7 +20,7 @@ The dashboard allows users to:
 
 ---
 
-## ✨ Features
+##  Features
 - Dashboard with summary cards (Income, Expenses, Balance)
 - Charts for:
   - Monthly trends
@@ -37,7 +37,7 @@ The dashboard allows users to:
 
 ---
 
-## 🔐 Role-Based UI
+##  Role-Based UI
 This project includes a simple role system:
 
 - **Admin**
@@ -49,7 +49,7 @@ This is only simulated on frontend (no backend).
 
 ---
 
-## 🧠 State Management
+##  State Management
 I used basic React concepts for state management:
 - `useState` for UI and data
 - `useMemo` for filtering and calculations
@@ -59,7 +59,7 @@ I avoided using Redux or other libraries to keep things simple.
 
 ---
 
-## 🤔 Assumptions
+##  Assumptions
 - No backend was required for this assignment
 - Mock data is used initially
 - All logic is handled on frontend
@@ -67,13 +67,13 @@ I avoided using Redux or other libraries to keep things simple.
 
 ---
 
-## 🚀 Extra Features Added
+##  Extra Features Added
 - Dark mode toggle
 - Data persistence using localStorage
 - Export transactions feature
 
 ---
-## 💻 Setup Instructions & How to Run Locally
+##  Setup Instructions & How to Run Locally
 
 ### Prerequisites
 Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
