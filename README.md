@@ -82,7 +82,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 1. Clone the repository or extract the zip file:
    ```bash
    git clone https://github.com/Bhushan0455/FinanceDashboard.git
-   cd Finance-Dashboard
+   cd FinanceDashboard
    ```
 
 2. Install the necessary dependencies:
