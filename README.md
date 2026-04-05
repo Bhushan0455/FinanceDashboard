@@ -25,13 +25,14 @@ https://bhushan0455.github.io/FinanceDashboard/
 ## 📸 Screenshots
 
 ### Dashboard
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](./screenshots/Dashboard.png)
 
 ### Transactions
-![Transactions](./screenshots/transactions.png)
+![Transactions](./screenshots/Transanctions_Admin_view.png)
+![Transactions](./screenshots/Transanctions_Viewer.png)
 
-### Charts
-![Charts](./screenshots/charts.png)
+### Insights Section
+![Charts](./screenshots/Insights.png)
 
 ##  Features
 - Dashboard with summary cards (Income, Expenses, Balance)
