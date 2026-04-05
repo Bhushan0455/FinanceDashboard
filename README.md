@@ -1,9 +1,7 @@
 # Finance Dashboard
 
 ## 📖 Overview
-This is a simple Finance Dashboard project built using React.
-
-I created this project as part of an internship assignment to practice frontend development and understand how to structure a real-world UI.
+This project is a Finance Dashboard that allows users to track their income and expenses, view insights, and analyze spending patterns through charts and summaries.
 
 The dashboard allows users to:
 - view financial summary
