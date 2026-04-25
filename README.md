@@ -67,7 +67,7 @@ This is only simulated on frontend (no backend).
 I used basic React concepts for state management:
 - `useState` for UI and data
 - `useMemo` for filtering and calculations
-- localStorage to save data
+- LocalStorage to save data
 
 I avoided using Redux or other libraries to keep things simple.
 
