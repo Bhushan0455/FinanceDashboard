@@ -7,7 +7,7 @@ The dashboard allows users to:
 - view financial summary
 - see transaction
 - understand spending patterns
-- switch between Viewer and Admin roles
+- Switch between Viewer and Admin roles
 
 ---
 
