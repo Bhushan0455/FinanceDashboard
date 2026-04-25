@@ -11,6 +11,9 @@ The dashboard allows users to:
 
 ---
 
+## 🌐 Live Demo
+https://bhushan0455.github.io/FinanceDashboard/
+
 ##  Tech Stack
 - React (with Vite)
 - Tailwind CSS
@@ -19,6 +22,17 @@ The dashboard allows users to:
 - GitHub Pages (deployment)
 
 ---
+## 📸 Screenshots
+
+### Dashboard
+![Dashboard](./screenshots/Dashboard.png)
+
+### Transactions
+![Transactions](./screenshots/Transanctions_Admin_view.png)
+![Transactions](./screenshots/Transanctions_Viewer.png)
+
+### Insights Section
+![Charts](./screenshots/Insights.png)
 
 ##  Features
 - Dashboard with summary cards (Income, Expenses, Balance)
@@ -82,7 +96,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 1. Clone the repository or extract the zip file:
    ```bash
    git clone https://github.com/Bhushan0455/FinanceDashboard.git
-   cd Finance-Dashboard
+   cd FinanceDashboard
    ```
 
 2. Install the necessary dependencies:
@@ -104,6 +118,5 @@ npm run build
 ```
 
 ---
-## 🌐 Live Demo
-https://bhushan0455.github.io/FinanceDashboard/
+
 
