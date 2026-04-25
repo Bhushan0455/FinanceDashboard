@@ -26,9 +26,9 @@ The dashboard allows users to:
   - Monthly trends
   - Category-wise spending
 - Transactions table with:
-  - search
-  - filtering
-  - sorting
+  - Search
+  - Filtering
+  - Sorting
 - Role-based UI:
   - Admin → can add/edit transactions
   - Viewer → read-only
