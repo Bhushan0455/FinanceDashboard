@@ -5,7 +5,7 @@ This project is a Finance Dashboard that allows users to track their income and 
 
 The dashboard allows users to:
 - view financial summary
-- see transactions
+- see transaction
 - understand spending patterns
 - switch between Viewer and Admin roles
 
